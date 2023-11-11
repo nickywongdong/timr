@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Welcome to Timr.
+          Welcome to timr.
         </p>
         <a href="https://github.com/nickywongdong/timr/actions/workflows/timr-ci.yml">
           <img
