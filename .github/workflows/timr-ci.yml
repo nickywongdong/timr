@@ -3,6 +3,10 @@
 
 name: timr-ci
 
+permissions:
+  contents: read
+  id-token: write
+
 on:
   push:
     branches:
@@ -53,11 +57,17 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'timr'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_46770CF1219F46CB8C1FAF889ACC8036 }}
           package: .
