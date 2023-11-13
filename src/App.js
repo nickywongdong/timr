@@ -3,6 +3,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import withSplashScreen from './Components/SplashScreen/withSplashScreen';
 import Stopwatch from './Components/Stopwatch/Stopwatch';
+import ConfigurationPanel from './Components/configuration-panel'; 
 
 function App() {
   const [isFading, setIsFading] = useState(false);
@@ -38,6 +39,7 @@ function App() {
             Welcome to timr.
           </p>
         </header>
+        <ConfigurationPanel />
         <Stopwatch />
         <footer>
           <a href="https://github.com/nickywongdong/timr/actions/workflows/timr-ci.yml">
