@@ -9,6 +9,6 @@ test('renders github workflow badge', async () => {
     expect(loadingScreen).not.toBeInTheDocument();
   }, { timeout: 2000 });
 
-  const badge = screen.getByAltText('timr-ci');
+  const badge = screen.getByAltText('Timr Continuous Integration Badge');
   expect(badge).toBeInTheDocument();
 });
