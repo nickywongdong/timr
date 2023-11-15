@@ -1,8 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import withSplashScreen from './Components/SplashScreen/withSplashScreen';
-import Stopwatch from './Components/Stopwatch/Stopwatch';
+import withSplashScreen from './Components/SplashScreen';
+import Stopwatch from './Components/Stopwatch';
 import ConfigurationPanel from './Components/ConfigurationPanel'; 
 
 function App() {
