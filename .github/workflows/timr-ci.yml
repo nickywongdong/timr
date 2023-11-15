@@ -4,8 +4,10 @@
 # This workflow builds/tests the source code. Intention is to be ran on pull requests, and required to pass before merging.
 name: timr-ci
 on:
-  pull_request_target:    
-    branches: [ "main" ]
+  pull_request:
+    types: [ opened, synchronize, reopened, ready_for_review ]
+  workflow_dispatch:
+
 
 jobs:
   build:
