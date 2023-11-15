@@ -1,6 +1,7 @@
 import './index.css'
 
-import TimerOption from "../timer-option"
+import TimerOption from "../TimerOption"
+
 const ConfigurationPanel = () => {
     return (
         <div className='configuration-panel-wrapper'>
