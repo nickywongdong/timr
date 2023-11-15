@@ -1,15 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import withSplashScreen from './Components/SplashScreen/withSplashScreen';
-import Stopwatch from './Components/Stopwatch/Stopwatch';
+import withSplashScreen from './Components/SplashScreen';
+import Stopwatch from './Components/Stopwatch';
 
 function App() {
   const [isFading, setIsFading] = useState(false);
 
   useEffect(() => {
 
-    const headerElement = document.querySelector('.welcome'); // Change '.header' to your actual class name
+    const headerElement = document.querySelector('.welcome');
     headerElement.addEventListener('transitionend', handleTransitionEnd);
 
     // Set a timeout to trigger the fade-out effect after 1 seconds
@@ -25,15 +25,19 @@ function App() {
 
 
   const handleTransitionEnd = () => {
-    const headerElement = document.querySelector('.welcome'); // Change '.header' to your actual class name
-    headerElement.style.display = 'none';
+    const headerElement = document.querySelector('.welcome');
+    if (headerElement) {
+      headerElement.style.display = 'none';
+    }
   };
+
+  const fadeOutClass = isFading ? 'fade-out' : '';
 
   return (
     <div className="App">
       <div className="App-container">
-        <header className={`welcome ${isFading ? 'fade-out hidden' : ''}`}>
-          <img src={logo} className="App-logo" alt="logo" />
+        <header className={`welcome ${fadeOutClass}`}>
+          <img src={logo} className="App-logo" alt="React Logo" />
           <p>
             Welcome to timr.
           </p>
@@ -43,7 +47,7 @@ function App() {
           <a href="https://github.com/nickywongdong/timr/actions/workflows/timr-ci.yml">
             <img
               src="https://github.com/nickywongdong/timr/actions/workflows/timr-ci.yml/badge.svg"
-              alt="timr-ci"
+              alt="Timr Continuous Integration Badge"
             />
           </a>
         </footer>
