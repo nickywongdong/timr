@@ -29,7 +29,6 @@ function Stopwatch() {
 
   return (
     <div>
-      <h1>Stopwatch</h1>
       <div className="stopwatch">
         <span>{String(Math.floor(elapsedTime / 3600)).padStart(2, '0')}:</span>
         <span>{String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0')}:</span>

@@ -34,24 +34,24 @@ function App() {
   const fadeOutClass = isFading ? 'fade-out' : '';
 
   return (
-    <div className="App">
-      <div className="App-container">
-        <header className={`welcome ${fadeOutClass}`}>
-          <img src={logo} className="App-logo" alt="React Logo" />
-          <p>
-            Welcome to timr.
-          </p>
-        </header>
+    <div className="AppContainer">
+      <header className={`welcome ${fadeOutClass}`}>
+        <img src={logo} className="AppLogo" alt="React Logo" />
+        <p>
+          Welcome to timr.
+        </p>
+      </header>
+      <div className="stopwatchContainer">
         <Stopwatch />
-        <footer>
-          <a href="https://github.com/nickywongdong/timr/actions/workflows/timr-ci.yml">
-            <img
-              src="https://github.com/nickywongdong/timr/actions/workflows/timr-ci.yml/badge.svg"
-              alt="Timr Continuous Integration Badge"
-            />
-          </a>
-        </footer>
       </div>
+      <footer>
+        <a href="https://github.com/nickywongdong/timr/actions/workflows/timr-ci.yml">
+          <img
+            src="https://github.com/nickywongdong/timr/actions/workflows/timr-ci.yml/badge.svg"
+            alt="Timr Continuous Integration Badge"
+          />
+        </a>
+      </footer>
     </div>
   );
 }
