@@ -1,6 +1,6 @@
 import './index.css'
 
-import TimerOption from "../TimerOption"
+import TimerOption from 'Components/TimerOption'
 
 const ConfigurationPanel = () => {
     return (

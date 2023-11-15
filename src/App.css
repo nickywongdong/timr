@@ -1,12 +1,16 @@
-.AppContainer {
+.App {
   background-color: #282c34;
+  font-size: calc(10px + 2vmin);
+  color: white;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+.AppContainer {
+  flex: 1;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
   text-align: center;
 }
 
@@ -16,7 +20,6 @@
 }
 
 .stopwatchContainer {
-  flex: 1;
   display: inherit;
   flex-direction: inherit;
   justify-content: inherit;
@@ -34,6 +37,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

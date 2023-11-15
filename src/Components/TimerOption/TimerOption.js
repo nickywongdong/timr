@@ -1,7 +1,7 @@
 import './index.css'
 
-import ValueSelector from '../ValueSelector'
-import Icon from '../Icon'
+import ValueSelector from 'Components/ValueSelector'
+import Icon from 'Components/Icon'
 
 const TimerOption = ({
     icon,
