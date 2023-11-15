@@ -29,7 +29,6 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          cd src
           npm install --omit=dev
           npm run build --if-present --omit=dev
 
