@@ -1,19 +1,4 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-container {
+.AppContainer {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -22,10 +7,27 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  text-align: center;
 }
 
-.App-link {
-  color: #61dafb;
+.AppLogo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.stopwatchContainer {
+  flex: 1;
+  display: inherit;
+  flex-direction: inherit;
+  justify-content: inherit;
+  align-items: inherit;
+  padding: inherit;
+  background-color: inherit;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
 }
 
 @keyframes App-logo-spin {
@@ -37,7 +39,8 @@
   }
 }
 
-.fade-out {
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
 }
