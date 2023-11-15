@@ -1,8 +1,11 @@
 import React, { useState, useLayoutEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
+
+import NavBar from 'Components/NavBar';
+import withSplashScreen from 'Components/SplashScreen';
+
 import AppRoutes from './AppRoutes';
-import withSplashScreen from './Components/SplashScreen';
-import NavBar from './Components/NavBar';
+
 import logo from './logo.svg';
 import './App.css';
 
