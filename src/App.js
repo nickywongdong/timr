@@ -47,21 +47,21 @@ function App() {
           <div className="stopwatchContainer"><AppRoutes /></div>
         </div>
         <footer>
-            <div>
-              <a href="https://github.com/nickywongdong/timr/actions/workflows/timr-ci.yml">
-                <img
-                  src="https://github.com/nickywongdong/timr/actions/workflows/timr-ci.yml/badge.svg"
-                  alt="Timr Continuous Integration Badge"
-                />
-              </a>
-              <a href="https://github.com/nickywongdong/timr/actions/workflows/timr-cd.yml">
-                <img
-                  src="https://github.com/nickywongdong/timr/actions/workflows/timr-cd.yml/badge.svg"
-                  alt="Timr Continuous Deployment Badge"
-                />
-              </a>
-            </div>
-          </footer>
+          <div>
+            <a href="https://github.com/nickywongdong/timr/actions/workflows/timr-ci.yml?query=event%3Apull_request">
+              <img
+                src="https://github.com/nickywongdong/timr/actions/workflows/timr-ci.yml/badge.svg?event=pull_request"
+                alt="Timr Continuous Integration Badge"
+              />
+            </a>
+            <a href="https://github.com/nickywongdong/timr/actions/workflows/timr-cd.yml">
+              <img
+                src="https://github.com/nickywongdong/timr/actions/workflows/timr-cd.yml/badge.svg"
+                alt="Timr Continuous Deployment Badge"
+              />
+            </a>
+          </div>
+        </footer>
       </div>
     </Router>
   );
