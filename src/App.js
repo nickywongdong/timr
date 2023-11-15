@@ -54,6 +54,12 @@ function App() {
                   alt="Timr Continuous Integration Badge"
                 />
               </a>
+              <a href="https://github.com/nickywongdong/timr/actions/workflows/timr-cd.yml">
+                <img
+                  src="https://github.com/nickywongdong/timr/actions/workflows/timr-cd.yml/badge.svg"
+                  alt="Timr Continuous Deployment Badge"
+                />
+              </a>
             </div>
           </footer>
       </div>
