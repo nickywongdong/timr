@@ -29,9 +29,8 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          cd src
-          npm install
-          npm run build --if-present --production
+          npm install --omit=dev
+          npm run build --if-present --omit=dev
 
       - name: Zip artifact for deployment
         run: zip release.zip ./build/* -r
