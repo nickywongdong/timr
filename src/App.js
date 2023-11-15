@@ -3,6 +3,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import withSplashScreen from './Components/SplashScreen';
 import Stopwatch from './Components/Stopwatch';
+import ConfigurationPanel from './Components/ConfigurationPanel'; 
 
 function App() {
   const [isFading, setIsFading] = useState(false);
@@ -41,6 +42,7 @@ function App() {
           Welcome to timr.
         </p>
       </header>
+      <ConfigurationPanel />
       <div className="stopwatchContainer">
         <Stopwatch />
       </div>
