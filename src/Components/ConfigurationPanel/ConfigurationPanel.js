@@ -1,4 +1,4 @@
-// ConfigurationContent.jsx
+// ConfigurationPanel.js
 import './index.css'
 
 import TimerOption from 'Components/TimerOption'
