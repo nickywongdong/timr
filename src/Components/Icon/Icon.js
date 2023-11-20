@@ -1,7 +1,8 @@
-const Icon = ({icon}) => {
+const Icon = ({ icon }) => {
     return (
-        <div>icon</div>
-    )
+        <div>
+            {icon}
+        </div>)
 }
 
 export default Icon

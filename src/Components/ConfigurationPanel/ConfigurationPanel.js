@@ -1,15 +1,45 @@
 // ConfigurationPanel.js
-import './index.css'
+import React, { useState } from 'react';
+import './index.css';
+import TimelapseIcon from '@mui/icons-material/Timelapse';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import SnoozeIcon from '@mui/icons-material/Snooze';
+import TimerOption from 'Components/TimerOption';
 
-import TimerOption from 'Components/TimerOption'
-import React from 'react';
+const ConfigurationPanel = ({ onClose, onSave }) => {
+    const [selectedSound, setSelectedSound] = useState('');
+    const [selectedTime, setSelectedTime] = useState(null);
 
-const ConfigurationPanel = ({ onClose }) => (
-    <div className='configuration-panel-wrapper'>
-    <TimerOption icon={'duration-icon'} label={'Duration'} valueSelectorType={'time'} />
-    <TimerOption icon={'sound-icon'} label={'Sound'} valueSelectorType={'sound'} />
-    <TimerOption icon={'rest-icon'} label={'Rest Break'} valueSelectorType={'dropdown'} />
-</div>
-);
+    const handleSaveInternal = () => {
+        console.log("Handle save in configuration panel");
+        onSave && onSave({ sound: selectedSound, time: selectedTime });
+        onClose(); // Close the dialog or perform other actions as needed
+    };
+
+
+    return (
+        <div className='configuration-panel-wrapper'>
+            <TimerOption
+                icon={<TimelapseIcon />}
+                label={'Duration'}
+                valueSelectorType={'time'}
+                onSave={handleSaveInternal}
+            />
+            <TimerOption
+                icon={<VolumeUpIcon />}
+                label={'Sound'}
+                valueSelectorType={'sound'}
+                onSave={handleSaveInternal}
+            />
+            <TimerOption
+                icon={<SnoozeIcon />}
+                label={'Rest Break'}
+                valueSelectorType={'rest-time'}
+                onSave={handleSaveInternal}
+            />
+            {/* Additional buttons or UI elements */}
+        </div>
+    );
+};
 
 export default ConfigurationPanel;
