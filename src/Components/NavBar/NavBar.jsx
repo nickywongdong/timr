@@ -21,6 +21,9 @@ function NavBar() {
           <Nav.Item>
             <ReusableModal buttonText={<GearWideConnected size={iconSize} />} content={ConfigurationPanel} />
           </Nav.Item>
+          <Nav.Item>
+          <SignInSignOutButton />
+          </Nav.Item>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
