@@ -4,6 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import AddIcon from '@mui/icons-material/Add';
 
+import SignInSignOutButton from 'Components/Auth/SignInSignOutButton';
 import ReusableDialog from 'Components/ReusableDialog';
 import ConfigurationPanel from 'Components/ConfigurationPanel';
 
@@ -16,6 +17,7 @@ function NavBar() {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Timr
         </Typography>
+        <SignInSignOutButton />
         <ReusableDialog buttonText={<AddIcon size={iconSize} />} content={ConfigurationPanel} />
       </Toolbar>
     </AppBar>
