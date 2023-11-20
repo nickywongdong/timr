@@ -1,17 +1,22 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMsal } from "@azure/msal-react";
 import IconButton from "@mui/material/IconButton";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { AccountPicker } from "./AccountPicker";
 
 export const SignOutButton = () => {
-  const { instance } = useMsal();
-  const [accountSelectorOpen, setOpen] = useState(false);
-
+  const { instance, accounts } = useMsal();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const [userName, setUserName] = useState(null);
+
+  useEffect(() => {
+    // Get the user's name from the first account if available
+    if (accounts.length > 0) {
+      setUserName(accounts[0].idTokenClaims?.given_name);
+    }
+  }, [accounts]);
 
   const handleLogout = (logoutType) => {
     setAnchorEl(null);
@@ -21,15 +26,6 @@ export const SignOutButton = () => {
     } else if (logoutType === "redirect") {
       instance.logoutRedirect();
     }
-  };
-
-  const handleAccountSelection = () => {
-    setAnchorEl(null);
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
   };
 
   return (
@@ -55,17 +51,16 @@ export const SignOutButton = () => {
         open={open}
         onClose={() => setAnchorEl(null)}
       >
-        <MenuItem onClick={() => handleAccountSelection()} key="switchAccount">
-          Switch Account
-        </MenuItem>
-        <MenuItem onClick={() => handleLogout("popup")} key="logoutPopup">
-          Logout using Popup
-        </MenuItem>
+        {userName && (
+          <MenuItem key="welcomeMessage" disabled>
+            Welcome, {userName}
+          </MenuItem>
+        )}
+        {/* Additional menu items can be added here */}
         <MenuItem onClick={() => handleLogout("redirect")} key="logoutRedirect">
-          Logout using Redirect
+          Logout
         </MenuItem>
       </Menu>
-      <AccountPicker open={accountSelectorOpen} onClose={handleClose} />
     </div>
   );
 };
