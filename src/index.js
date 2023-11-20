@@ -1,8 +1,7 @@
 // index.js
 
-import React from "react";
 import { initializeMsal, renderApp } from "Services/AuthService/AuthService";
-import { darkTheme, lightTheme } from "Styles/Theme";
+import { darkTheme } from "Styles/Theme";
 import reportWebVitals from "./reportWebVitals";
 
 async function startApp() {
