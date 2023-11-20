@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './SplashScreen.css';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function LoadingMessage() {
   return (
     <div className="splash-screen">
       Wait a moment while we load your app.
-      <div className="loading-dot">.</div>
+      <div className="loading-dot"><CircularProgress color="inherit" /></div>
     </div>
   );
 }
