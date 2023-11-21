@@ -9,7 +9,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { msalConfig } from "./authConfig";
 import App from "App";
 
-export const initializeMsal = async (theme) => {
+export const initializeMsal = async () => {
   const msalInstance = new PublicClientApplication(msalConfig);
 
   await msalInstance.initialize();
@@ -34,7 +34,7 @@ export const initializeMsal = async (theme) => {
     }
   });
 
-  return { msalInstance, theme };
+  return { msalInstance };
 };
 
 export const renderApp = ({ msalInstance, theme }) => {

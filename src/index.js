@@ -5,8 +5,8 @@ import { darkTheme } from "Styles/Theme";
 import reportWebVitals from "./reportWebVitals";
 
 async function startApp() {
-  const { msalInstance, theme } = await initializeMsal(darkTheme);
-  renderApp({ msalInstance, theme });
+  const { msalInstance } = await initializeMsal();
+  renderApp({ msalInstance, theme: darkTheme });
 }
 
 startApp();
