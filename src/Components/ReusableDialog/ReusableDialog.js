@@ -9,24 +9,27 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 
+import { useTimerContext } from 'Contexts/TimerContext';
+
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ReusableDialog = ({ buttonText, content: ContentComponent, onSave }) => {
+const ReusableDialog = ({ buttonText, content: ContentComponent }) => {
   const [open, setOpen] = useState(false);
-  const [formData, setFormData] = useState(null);
+  const { timerData } = useTimerContext();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleSave = () => {
-    console.log("formData:", formData);
-    if (formData) {
-      console.log("handling save in reusable dialog: ", formData);
-      onSave(formData); // Call the onSave function with the data
-      handleClose(); // Close the dialog
-    }
+  const formatTime = (time) => time.format('HH:mm:ss');
+
+  const onHandleSave = () => {
+    console.log("Stopwatch time:", formatTime(timerData.stopwatchTime));
+    console.log("Rest Time:", formatTime(timerData.restTime));
+    console.log("Sound:", timerData.sound);
+
+    handleClose();
   };
 
   return (
@@ -53,7 +56,7 @@ const ReusableDialog = ({ buttonText, content: ContentComponent, onSave }) => {
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               Add a timr
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleSave}>
+            <Button autoFocus color="inherit" onClick={onHandleSave}>
               Save
             </Button>
           </Toolbar>
@@ -61,7 +64,6 @@ const ReusableDialog = ({ buttonText, content: ContentComponent, onSave }) => {
         {ContentComponent && (
           <ContentComponent
             onClose={handleClose}
-            onFormChange={(data) => setFormData(data)}
           />
         )}
       </Dialog>

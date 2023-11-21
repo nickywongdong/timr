@@ -1,4 +1,3 @@
-// ValueSelector.js
 import { useState } from 'react';
 import { MultiSectionDigitalClock } from '@mui/x-date-pickers/MultiSectionDigitalClock';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -8,15 +7,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-const ValueSelector = ({ valueSelectorType, onSave }) => {
+import { useTimerContext } from 'Contexts/TimerContext';
+
+const ValueSelector = ({ valueSelectorType }) => {
+  const { setTimerContextData } = useTimerContext();
   const [sound, setSound] = useState('');
-
-  const handleChange = (event) => {
-    console.log("Handle save in value selector");
-
-    setSound(event.target.value);
-    onSave && onSave(event.target.value);
-  };
 
   switch (valueSelectorType) {
     case 'sound':
@@ -28,7 +23,11 @@ const ValueSelector = ({ valueSelectorType, onSave }) => {
             id="sound-select"
             value={sound}
             label="Sound"
-            onChange={handleChange}
+            onChange={(event) => {
+              const selectedSound = event.target.value;
+              setSound(selectedSound);
+              setTimerContextData({ sound: selectedSound });
+            }}
           >
             <MenuItem value={"Beep"}>Beep</MenuItem>
             <MenuItem value={"Horn"}>Horn</MenuItem>
@@ -37,13 +36,22 @@ const ValueSelector = ({ valueSelectorType, onSave }) => {
         </FormControl>
       );
     case 'time':
+      return (
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <MultiSectionDigitalClock
+            views={['hours', 'minutes', 'seconds']}
+            ampm={false}
+            onChange={(date) => setTimerContextData({ stopwatchTime: date })}
+          />
+        </LocalizationProvider>
+      );
     case 'rest-time':
       return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <MultiSectionDigitalClock
             views={['hours', 'minutes', 'seconds']}
             ampm={false}
-            onChange={(date) => onSave && onSave(date)}
+            onChange={(date) => setTimerContextData({ restTime: date })}
           />
         </LocalizationProvider>
       );
