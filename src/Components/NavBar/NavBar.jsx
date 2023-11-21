@@ -17,8 +17,11 @@ function NavBar() {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Timr
         </Typography>
+        <ReusableDialog
+          buttonText={<AddIcon size={iconSize} />}
+          content={(props) => <ConfigurationPanel {...props} />}
+        />
         <SignInSignOutButton />
-        <ReusableDialog buttonText={<AddIcon size={iconSize} />} content={ConfigurationPanel} />
       </Toolbar>
     </AppBar>
   );

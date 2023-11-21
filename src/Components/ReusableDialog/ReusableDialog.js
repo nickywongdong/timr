@@ -1,5 +1,5 @@
 // ReusableDialog.js
-import {forwardRef, useState} from 'react';
+import { forwardRef, useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import AppBar from '@mui/material/AppBar';
@@ -9,15 +9,28 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 
+import { useTimerContext } from 'Contexts/TimerContext';
+
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-
-const ReusableDialog = ({ buttonText, content: ContentComponent }) => {  
+const ReusableDialog = ({ buttonText, content: ContentComponent }) => {
   const [open, setOpen] = useState(false);
+  const { timerData } = useTimerContext();
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const formatTime = (time) => time.format('HH:mm:ss');
+
+  const onHandleSave = () => {
+    console.log("Stopwatch time:", formatTime(timerData.stopwatchTime));
+    console.log("Rest Time:", formatTime(timerData.restTime));
+    console.log("Sound:", timerData.sound);
+
+    handleClose();
+  };
 
   return (
     <div>
@@ -43,15 +56,19 @@ const ReusableDialog = ({ buttonText, content: ContentComponent }) => {
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               Add a timr
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleClose}>
-              save
+            <Button autoFocus color="inherit" onClick={onHandleSave}>
+              Save
             </Button>
           </Toolbar>
         </AppBar>
-        {ContentComponent && <ContentComponent onClose={handleClose} />}
+        {ContentComponent && (
+          <ContentComponent
+            onClose={handleClose}
+          />
+        )}
       </Dialog>
     </div>
   );
-}
+};
 
 export default ReusableDialog;

@@ -1,15 +1,33 @@
 // ConfigurationPanel.js
-import './index.css'
-
-import TimerOption from 'Components/TimerOption'
 import React from 'react';
+import './index.css';
+import TimelapseIcon from '@mui/icons-material/Timelapse';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import SnoozeIcon from '@mui/icons-material/Snooze';
+import TimerOption from 'Components/TimerOption';
 
-const ConfigurationPanel = ({ onClose }) => (
+const ConfigurationPanel = () => {
+
+  return (
     <div className='configuration-panel-wrapper'>
-    <TimerOption icon={'duration-icon'} label={'Duration'} valueSelectorType={'time'} />
-    <TimerOption icon={'sound-icon'} label={'Sound'} valueSelectorType={'sound'} />
-    <TimerOption icon={'rest-icon'} label={'Rest Break'} valueSelectorType={'dropdown'} />
-</div>
-);
+      <TimerOption
+        icon={<TimelapseIcon />}
+        label={'Duration'}
+        valueSelectorType={'time'}
+      />
+      <TimerOption
+        icon={<VolumeUpIcon />}
+        label={'Sound'}
+        valueSelectorType={'sound'}
+      />
+      <TimerOption
+        icon={<SnoozeIcon />}
+        label={'Rest Break'}
+        valueSelectorType={'rest-time'}
+      />
+      {/* Additional buttons or UI elements */}
+    </div>
+  );
+};
 
 export default ConfigurationPanel;
