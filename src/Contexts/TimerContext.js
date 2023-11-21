@@ -4,10 +4,10 @@ import React, { createContext, useContext, useState } from 'react';
 const TimerContext = createContext();
 
 const defaultTimerData = {
-    time: null,
-    sound: '',
-    restTime: null
-  };
+  stopwatchTime: null,
+  sound: '',
+  restTime: null
+};
 
 export const TimerProvider = ({ children }) => {
   const [timerData, setTimerData] = useState(defaultTimerData);
