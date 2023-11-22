@@ -1,3 +1,4 @@
+import './index.css'
 import { useState } from 'react';
 import { MultiSectionDigitalClock } from '@mui/x-date-pickers/MultiSectionDigitalClock';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
