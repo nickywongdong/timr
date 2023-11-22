@@ -19,8 +19,14 @@ const ReusableDialog = ({ buttonText, content: ContentComponent }) => {
   const [open, setOpen] = useState(false);
   const { timerData } = useTimerContext();
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => {
+    document.ontouchstart = (e) => {e.preventDefault()}
+    setOpen(true)
+  };
+  const handleClose = () => {
+    document.ontouchstart = (e) => {return true}
+    setOpen(false)
+  };
 
   const formatTime = (time) => time.format('HH:mm:ss');
 
