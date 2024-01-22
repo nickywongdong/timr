@@ -1,0 +1,1 @@
+ C:\\Users\\macmm\\workspace\\timr\\.dart_tool\\flutter_build\\ff3abd6c8aa8844adc252693081085f5\\native_assets.yaml: 
