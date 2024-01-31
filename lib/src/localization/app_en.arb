@@ -1,0 +1,6 @@
+{
+  "appTitle": "timr",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
