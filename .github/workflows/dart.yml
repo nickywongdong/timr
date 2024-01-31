@@ -1,0 +1,27 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# Makes use of flutter action: https://github.com/marketplace/actions/flutter-action
+
+# This workflow builds/tests the source code. Intention is to be ran on pull requests, and required to pass before merging.
+name: timr-ci
+on:
+  pull_request:
+    types: [ opened, synchronize, reopened, ready_for_review ]
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: subosito/flutter-action@v2
+      with:
+        channel: 'stable'
+    - run: flutter --version
+    - run: flutter pub get
+    - run: flutter test
+    - run: flutter build web
