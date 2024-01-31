@@ -10,6 +10,10 @@
 .svn/
 migrate_working_dir/
 
+# NodeJS
+node_modules/
+public-flutter/
+
 # IntelliJ related
 *.iml
 *.ipr
