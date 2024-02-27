@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 //Path to lib is actually name of project which is defined in pubspec.yaml, not lib/...
-import 'package:timr/widget/start_button.dart';
-import 'package:timr/widget/time_display.dart';
+import 'package:timr/widgets/start_button.dart';
+import 'package:timr/widgets/time_display.dart';
+import 'package:timr/widgets/config_panel.dart';
 import 'package:timr/models.dart';
 
 void main() {
@@ -83,14 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(children: [
           TimeDisplay(timerSettings: timerSettings),
-          StartButton(
-            text: 'Start',
-            color: Colors.black,
-            backgroundColor: Colors.white,
-            onClicked: () {
-              timerSettings.startWorkout();
-            },
-          )
+          ConfigPanel(timerSettings: timerSettings)
         ],)
       ) 
     );

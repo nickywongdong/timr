@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:timr/timer_constants.dart';
 
 class TimerSettings {
   int repCount;
@@ -8,27 +9,34 @@ class TimerSettings {
   Duration totalTimeElapsed;
   Duration timeRemaining;
   Timer? timer;
-  bool isRep;
+  bool isRepCycle;
   Function onTickChanged;
   //sound
 
   TimerSettings({
     required this.onTickChanged,
     this.repCount = 1,
-    this.repDuration = const Duration(seconds: 60),
+    this.repDuration = defaultRepDuration,
     this.restDuration = const Duration(seconds: 10),
     this.totalTimeElapsed = const Duration(seconds: 0),
     this.timeRemaining = const Duration(seconds: 60),
-    this.isRep = true,
+    this.isRepCycle = true,
   });
 
   int getRemainingTime() {
     return timeRemaining.inSeconds;
   }
 
+  void setRemainingTime(Duration newRemainingTime) {
+    this.timeRemaining = newRemainingTime;
+  }
+
   double getTimeRemainingPercentage() {
-    Duration timeDuration = isRep ? repDuration : restDuration;
+    Duration timeDuration = isRepCycle ? repDuration : restDuration;
     Duration elapsedDuration = timeDuration - timeRemaining;
+    if (timeDuration.inSeconds == 0) {
+      return 0;
+    }
     return elapsedDuration.inSeconds / timeDuration.inSeconds;
   }
 
@@ -40,11 +48,11 @@ class TimerSettings {
   
   void restTick(Timer timer) {
     if (repCount < 0) {
-      pauseTimer();
+      pauseWorkout();
     } else {
       if (timeRemaining < const Duration(seconds: 1)) {
         timer = Timer.periodic(const Duration(seconds: 1), repTick);
-        isRep = true;
+        isRepCycle = true;
       } else {
         _tick();
       }
@@ -53,13 +61,13 @@ class TimerSettings {
 
   void repTick(Timer timer) {
     if (repCount < 0) {
-      pauseTimer();
+      pauseWorkout();
     } else {
       if (timeRemaining < const Duration(seconds: 1)){
         repCount--;
         timer = Timer.periodic(const Duration(seconds: 1), restTick);
         timeRemaining = restDuration;
-        isRep = false;
+        isRepCycle = false;
       } else {
         _tick();
       }
@@ -70,7 +78,7 @@ class TimerSettings {
       totalTimeElapsed = const Duration(seconds: 0);
     }
     timeRemaining = repDuration;
-    isRep = true;
+    isRepCycle = true;
     repCount--;
     timer = Timer.periodic(const Duration(seconds: 1), repTick);
   }
@@ -83,7 +91,26 @@ class TimerSettings {
     return timer?.isActive ?? false;
   }
 
-  void pauseTimer() {
+  bool getIsRepCycle() {
+    return isRepCycle;
+  }
+
+  void setRepDuration(Duration newDuration) {
+    repDuration = newDuration;
+    setRemainingTime(newDuration);
+    onTickChanged();
+  }
+
+  void pauseWorkout() {
     timer?.cancel();
+  }
+
+  void resumeWorkout() {
+    isRepCycle = getIsRepCycle();
+    if (isRepCycle) {
+      timer = Timer.periodic(const Duration(seconds: 1), repTick);
+    } else {
+      timer = Timer.periodic(const Duration(seconds: 1), restTick);
+    }
   }
 }
