@@ -6,7 +6,7 @@ class TimeDisplay extends StatelessWidget {
   Color backgroundColor;
   TimerSettings timerSettings;
 
-    TimeDisplay({
+  TimeDisplay({
     super.key,
     this.color = Colors.white,
     this.backgroundColor = Colors.black,

@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 
 class StartButton extends StatelessWidget {
-  final String text;
-  final Color color;
-  final Color backgroundColor;
-  final VoidCallback onClicked;
+  static const text = 'Start';
+  static const color = Colors.black;
+  static const backgroundColor = Colors.white;
+  final VoidCallback startWorkout;
 
   //This is the constructor
   const StartButton({
     Key? key,
-    required this.text,
-    this.color = Colors.white,
-    this.backgroundColor = Colors.black,
-    required this.onClicked,
+    required this.startWorkout,
   }) : super(key: key);
 
   @override 
@@ -21,7 +18,7 @@ class StartButton extends StatelessWidget {
       backgroundColor: backgroundColor,
       padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16)
     ),
-    onPressed: onClicked,
+    onPressed: startWorkout,
     child: Text(
       text,
       style: TextStyle(fontSize: 20, color: color),
