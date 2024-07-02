@@ -4,6 +4,7 @@ import 'package:timr/widgets/start_button.dart';
 import 'package:timr/models.dart';
 import 'package:timr/widgets/pause_button.dart';
 import 'package:timr/widgets/rep_time_picker.dart';
+import 'package:timr/widgets/set_picker.dart';
 
 class ConfigPanel extends StatelessWidget {
   TimerSettings timerSettings;
@@ -28,9 +29,14 @@ class ConfigPanel extends StatelessWidget {
       ),
       RepTimePicker(
         context: context,
-        repDuration: timerSettings.repDuration,
+        repDuration: timerSettings.getRepDuration(),
         setRepDuration: (Duration newDuration) => timerSettings.setRepDuration(newDuration)
       ),
+      SetPicker(
+        context: context,
+        setCount: timerSettings.getSetCount(),
+        setSetCount: (int value) => timerSettings.setSetCount(value)
+      )
     ]
   );
 } 

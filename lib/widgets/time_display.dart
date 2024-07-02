@@ -23,7 +23,7 @@ class TimeDisplay extends StatelessWidget {
     children: [
       CircularProgressIndicator(
         value: timerSettings.getTimeRemainingPercentage(),
-        valueColor: AlwaysStoppedAnimation(Colors.white),
+        valueColor: timerSettings.getIsRepCycle() ? AlwaysStoppedAnimation(Colors.white) : AlwaysStoppedAnimation(Colors.red),
         backgroundColor: Colors.greenAccent,
         strokeWidth: 12,
       ),
