@@ -1,6 +1,8 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
+var _setPickerList = List<int>.generate(100, (i) => i + 1);
 
 class SetPicker extends StatelessWidget {
   final void Function(int) setSetCount;
@@ -15,7 +17,7 @@ class SetPicker extends StatelessWidget {
     super.key,
     required this.context,
     required this.setCount,
-    required this.setSetCount,
+    required this.setSetCount
   });
 
   void _showDialog(Widget child) {
@@ -52,14 +54,18 @@ class SetPicker extends StatelessWidget {
             ),
             CupertinoButton(
               onPressed: () => _showDialog(
-                CupertinoTextField(
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                  onSubmitted: (String value) {
-                    setSetCount(int.parse(value));
+                CupertinoPicker(
+                  magnification: 1.22,
+                  squeeze: 1.2,
+                  useMagnifier: true,
+                  itemExtent: 32.0,
+                  scrollController: FixedExtentScrollController(initialItem: setCount - 1),
+                  onSelectedItemChanged: (int selectedItem) {
+                    setSetCount(selectedItem + 1);
                   },
+                  children: List<Widget>.generate(_setPickerList.length, (int index) {
+                    return Center(child: Text(_setPickerList[index].toString()));
+                  }),
                 )
               ),
               child: Text(
@@ -79,7 +85,6 @@ class SetPicker extends StatelessWidget {
 
 class _SetPickerItem extends StatelessWidget {
   const _SetPickerItem({required this.children});
-
   final List<Widget> children;
 
   @override

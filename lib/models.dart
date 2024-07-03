@@ -102,6 +102,7 @@ class TimerSettings {
   void setSetCount(int count) {
     setCount = count;
     currentSetCount = count;
+    //TODO: Do we need this here?
     setRemainingTime(getRepDuration());
     onTickChanged();
   }

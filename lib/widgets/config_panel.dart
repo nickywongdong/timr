@@ -6,6 +6,7 @@ import 'package:timr/widgets/pause_button.dart';
 import 'package:timr/widgets/rep_time_picker.dart';
 import 'package:timr/widgets/set_picker.dart';
 
+// TODO: Does this need to be a StatefulWidget?
 class ConfigPanel extends StatelessWidget {
   TimerSettings timerSettings;
 
