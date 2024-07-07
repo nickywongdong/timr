@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 //Path to lib is actually name of project which is defined in pubspec.yaml, not lib/...
-import 'package:timr/widgets/start_button.dart';
 import 'package:timr/widgets/time_display.dart';
 import 'package:timr/widgets/config_panel.dart';
 import 'package:timr/models.dart';
@@ -48,23 +46,24 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  //TOOD what does static mean
+  //TOOD what does static mean + what does late mean?
   late TimerSettings timerSettings;
-  
+
   //TODO What does super.initstate() do
-  @override 
+  @override
   initState() {
-    super.initState();  
+    super.initState();
     timerSettings = TimerSettings(onTickChanged: onTickChanged);
   }
 
-  onTickChanged() {setState(() {});}
+  onTickChanged() {
+    setState(() {});
+  }
 
   // //TODO what does disposeState do
   // @override
@@ -81,12 +80,12 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      body: Center(
-        child: Column(children: [
-          TimeDisplay(timerSettings: timerSettings),
-          ConfigPanel(timerSettings: timerSettings)
-        ],)
-      ) 
-    );
+        body: Center(
+            child: Column(
+      children: [
+        TimeDisplay(timerSettings: timerSettings),
+        ConfigPanel(timerSettings: timerSettings)
+      ],
+    )));
   }
 }

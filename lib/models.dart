@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:timr/timer_constants.dart';
 
 class TimerSettings {
@@ -12,6 +13,8 @@ class TimerSettings {
   Timer? timer;
   bool isRepCycle;
   Function onTickChanged;
+  bool _isTimerActive = false;
+  bool _isTimerPaused = false;
   //sound
 
   TimerSettings({
@@ -34,7 +37,7 @@ class TimerSettings {
   }
 
   void setRemainingTime(Duration newRemainingTime) {
-    this.timeRemaining = newRemainingTime;
+    timeRemaining = newRemainingTime;
   }
 
   double getTimeRemainingPercentage() {
@@ -48,12 +51,13 @@ class TimerSettings {
 
   void alternateTimeRemaining(Timer timer) {
     if (isRepCycle) {
-        timeRemaining = restDuration - tickIncrement;
+      timeRemaining = restDuration - tickIncrement;
     } else {
       currentSetCount -= 1;
       if (currentSetCount == 0) {
         timeRemaining = const Duration(seconds: 0);
         timer.cancel();
+        _isTimerActive = false;
       } else {
         timeRemaining = repDuration - tickIncrement;
       }
@@ -62,15 +66,16 @@ class TimerSettings {
   }
 
   void tick(Timer timer) {
-    print(timeRemaining);
+    // print(timeRemaining);
     timeRemaining -= tickIncrement;
     if (timeRemaining < const Duration(milliseconds: 0)) {
       alternateTimeRemaining(timer);
-    }  
+    }
     onTickChanged();
   }
 
   void startWorkout() {
+    _isTimerActive = true;
     if (totalTimeElapsed == getTotalWorkoutTime()) {
       totalTimeElapsed = const Duration(seconds: 0);
     }
@@ -81,12 +86,21 @@ class TimerSettings {
     timer = Timer.periodic(tickIncrement, tick);
   }
 
+  void stopWorkout() {
+    _isTimerActive = false;
+    timeRemaining = repDuration;
+    currentSetCount = setCount;
+    isRepCycle = true;
+    onTickChanged();
+    timer?.cancel();
+  }
+
   Duration getTotalWorkoutTime() {
     return (repDuration + restDuration) * setCount;
   }
-  
+
   bool isTimerActive() {
-    return timer?.isActive ?? false;
+    return _isTimerActive;
   }
 
   bool getIsRepCycle() {
@@ -113,9 +127,16 @@ class TimerSettings {
 
   void pauseWorkout() {
     timer?.cancel();
+    _isTimerPaused = true;
+    onTickChanged();
   }
 
   void resumeWorkout() {
+    _isTimerPaused = false;
     timer = Timer.periodic(tickIncrement, tick);
+  }
+
+  bool isTimerPaused() {
+    return _isTimerPaused;
   }
 }
