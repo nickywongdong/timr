@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
     timerSettings = TimerSettings(onTickChanged: onTickChanged);
   }
 
-  onTickChanged() {setState(() {});}
+  onTickChanged() {setState(() {});} //TODO move rerender into descendant components
 
   // //TODO what does disposeState do
   // @override
