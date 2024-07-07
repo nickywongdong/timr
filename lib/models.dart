@@ -80,6 +80,7 @@ class TimerSettings {
 
   void startWorkout() {
     _isTimerActive = true;
+    _isTimerPaused = false;
     if (totalTimeElapsed == getTotalWorkoutTime()) {
       totalTimeElapsed = const Duration(seconds: 0);
     }
@@ -97,6 +98,7 @@ class TimerSettings {
     isRepCycle = true;
     onTickChanged();
     timer?.cancel();
+    _isTimerPaused = true;
   }
 
   Duration getTotalWorkoutTime() {
