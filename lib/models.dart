@@ -19,10 +19,10 @@ class TimerSettings {
 
   TimerSettings({
     required this.onTickChanged,
-    this.setCount = 1,
-    this.currentSetCount = 1,
+    this.setCount = defaultSetCount,
+    this.currentSetCount = defaultSetCount,
     this.repDuration = defaultRepDuration,
-    this.restDuration = const Duration(seconds: 3),
+    this.restDuration = defaultRestDuration,
     this.totalTimeElapsed = const Duration(seconds: 0),
     this.timeRemaining = defaultRepDuration,
     this.isRepCycle = true,
@@ -30,6 +30,10 @@ class TimerSettings {
 
   Duration getRepDuration() {
     return repDuration;
+  }
+
+  Duration getRestDuration() {
+    return restDuration;
   }
 
   int getRemainingTime() {
@@ -109,15 +113,19 @@ class TimerSettings {
 
   void setRepDuration(Duration newDuration) {
     repDuration = newDuration;
-    setRemainingTime(newDuration);
+    if (isRepCycle) setRemainingTime(newDuration);
+    onTickChanged();
+  }
+
+  void setRestDuration(Duration newDuration) {
+    restDuration = newDuration;
+    if (!isRepCycle) setRemainingTime(newDuration);
     onTickChanged();
   }
 
   void setSetCount(int count) {
     setCount = count;
     currentSetCount = count;
-    //TODO: Do we need this here?
-    setRemainingTime(getRepDuration());
     onTickChanged();
   }
 

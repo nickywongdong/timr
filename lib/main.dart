@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   onTickChanged() {
     setState(() {});
-  }
+  } //TODO move rerender into descendant components
 
   // //TODO what does disposeState do
   // @override

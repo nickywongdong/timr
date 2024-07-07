@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 
 class RepTimePicker extends StatelessWidget {
-  final void Function(Duration) setRepDuration;
-  Duration repDuration;
-  static const text = 'Pause';
   static const color = Colors.black;
   static const backgroundColor = Colors.white;
   BuildContext context;
+  Duration repDuration;
+  final void Function(Duration) setRepDuration;
+  
 
   //This is the constructor
   RepTimePicker({
