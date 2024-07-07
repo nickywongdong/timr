@@ -16,10 +16,10 @@ class TimerSettings {
 
   TimerSettings({
     required this.onTickChanged,
-    this.setCount = 1,
-    this.currentSetCount = 1,
+    this.setCount = defaultSetCount,
+    this.currentSetCount = defaultSetCount,
     this.repDuration = defaultRepDuration,
-    this.restDuration = const Duration(seconds: 3),
+    this.restDuration = defaultRestDuration,
     this.totalTimeElapsed = const Duration(seconds: 0),
     this.timeRemaining = defaultRepDuration,
     this.isRepCycle = true,
@@ -29,12 +29,16 @@ class TimerSettings {
     return repDuration;
   }
 
+  Duration getRestDuration() {
+    return restDuration;
+  }
+
   int getRemainingTime() {
     return timeRemaining.inSeconds;
   }
 
   void setRemainingTime(Duration newRemainingTime) {
-    this.timeRemaining = newRemainingTime;
+    timeRemaining = newRemainingTime;
   }
 
   double getTimeRemainingPercentage() {
@@ -62,7 +66,6 @@ class TimerSettings {
   }
 
   void tick(Timer timer) {
-    print(timeRemaining);
     timeRemaining -= tickIncrement;
     if (timeRemaining < const Duration(milliseconds: 0)) {
       alternateTimeRemaining(timer);
@@ -77,8 +80,9 @@ class TimerSettings {
     timeRemaining = repDuration;
     currentSetCount = setCount;
     isRepCycle = true;
-    timer?.cancel();
-    timer = Timer.periodic(tickIncrement, tick);
+    if (!isTimerActive()) {
+      timer = Timer.periodic(tickIncrement, tick);
+    } 
   }
 
   Duration getTotalWorkoutTime() {
@@ -95,15 +99,19 @@ class TimerSettings {
 
   void setRepDuration(Duration newDuration) {
     repDuration = newDuration;
-    setRemainingTime(newDuration);
+    if (isRepCycle) setRemainingTime(newDuration);
+    onTickChanged();
+  }
+
+  void setRestDuration(Duration newDuration) {
+    restDuration = newDuration;
+    if (!isRepCycle) setRemainingTime(newDuration);
     onTickChanged();
   }
 
   void setSetCount(int count) {
     setCount = count;
     currentSetCount = count;
-    //TODO: Do we need this here?
-    setRemainingTime(getRepDuration());
     onTickChanged();
   }
 
@@ -116,6 +124,7 @@ class TimerSettings {
   }
 
   void resumeWorkout() {
+    if (isTimerActive()) return;
     timer = Timer.periodic(tickIncrement, tick);
   }
 }

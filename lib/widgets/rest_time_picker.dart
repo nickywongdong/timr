@@ -1,22 +1,21 @@
-
 import 'package:flutter/cupertino.dart';
+import 'package:timr/models.dart';
 import 'package:flutter/material.dart';
 
-var _setPickerList = List<int>.generate(100, (i) => i + 1);
 
-class SetPicker extends StatelessWidget {
-  final void Function(int) setSetCount;
-  int setCount;
+class RestTimePicker extends StatelessWidget {
   static const color = Colors.black;
   static const backgroundColor = Colors.white;
   BuildContext context;
+  Duration restDuration;
+  final void Function(Duration) setRestDuration;
 
   //This is the constructor
-  SetPicker({
+  RestTimePicker({
     super.key,
     required this.context,
-    required this.setCount,
-    required this.setSetCount
+    required this.restDuration,
+    required this.setRestDuration
   });
 
   void _showDialog(Widget child) {
@@ -25,65 +24,68 @@ class SetPicker extends StatelessWidget {
       builder: (BuildContext context) => Container(
         height: 216,
         padding: const EdgeInsets.only(top: 6.0),
+        // The bottom margin is provided to align the popup above the system
+        // navigation bar.
         margin: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
+        // Provide a background color for the popup.
         color: CupertinoColors.systemBackground.resolveFrom(context),
+        // Use a SafeArea widget to avoid system overlaps.
         child: SafeArea(
           top: false,
           child: child,
-        )
+        ),
       ),
     );
   }
 
-  @override
+  @override 
   Widget build(BuildContext context) => Center(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        _SetPickerItem(
+        _TimerPickerItem(
           children: <Widget>[
             const Text(
-              'Number of sets',
+              'Rest Time',
               style: TextStyle(
                 fontSize: 22.0,
                 color: Colors.white
-              )
-            ),
+              )),
             CupertinoButton(
+              // Display a CupertinoTimerPicker with hour/minute mode.
               onPressed: () => _showDialog(
-                CupertinoPicker(
-                  magnification: 1.22,
-                  squeeze: 1.2,
-                  useMagnifier: true,
-                  itemExtent: 32.0,
-                  scrollController: FixedExtentScrollController(initialItem: setCount - 1),
-                  onSelectedItemChanged: (int selectedItem) {
-                    setSetCount(selectedItem + 1);
-                  },
-                  children: List<Widget>.generate(_setPickerList.length, (int index) {
-                    return Center(child: Text(_setPickerList[index].toString()));
-                  }),
-                )
+                CupertinoTimerPicker(
+                  mode: CupertinoTimerPickerMode.ms,
+                  initialTimerDuration: restDuration,
+                  // This is called when the user changes the timer's
+                  // duration.
+                  onTimerDurationChanged: (Duration newDuration) => setRestDuration(newDuration)
+                ),
               ),
+              // In this example, the timer's value is formatted manually.
+              // You can use the intl package to format the value based on
+              // the user's locale settings.
               child: Text(
-                '$setCount',
+                '$restDuration',
                 style: const TextStyle(
                   fontSize: 22.0,
                   color: Colors.white
-                ) ,
+                ),
               ),
-            )
-          ]
-        )
+            ),
+          ],
+        ),
       ],
-    )
+    ),
   );
-}
+} 
 
-class _SetPickerItem extends StatelessWidget {
-  const _SetPickerItem({required this.children});
+// This class simply decorates a row of widgets.
+class _TimerPickerItem extends StatelessWidget {
+  const _TimerPickerItem({required this.children});
+
   final List<Widget> children;
 
   @override
@@ -111,13 +113,3 @@ class _SetPickerItem extends StatelessWidget {
     );
   }
 }
-
-//   @override 
-//   Widget build(BuildContext context) => CupertinoTextField(
-//     keyboardType: TextInputType.number,
-//     style: TextStyle(color: Colors.white),
-//     onSubmitted: (String value) {
-//       setRepCount(int.parse(value));
-//     }
-//   );
-// } 
